@@ -11,10 +11,11 @@
     tools:context="com.chesak.adam.boilermake2017recipeapp.RecipeActivity">
 
     <TextView
-        android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/recipe_data" />
+        android:id="@+id/recipe_data"
+        android:text="@string/placeholder_recipe"
+        android:textAppearance="@android:style/TextAppearance.Material.Body1" />
 </RelativeLayout>

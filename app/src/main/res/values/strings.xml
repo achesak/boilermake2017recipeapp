@@ -6,4 +6,7 @@
     <string name="main_take_picture">Take a picture</string>
     <string name="main_use_existing">Use existing picture</string>
     <string name="main_resume">Resume last recipe\n(%1$s)</string>
+
+    <!-- Recipe screen -->
+    <string name="placeholder_recipe">RECIPE TITLE\n\nIngredient\nIngredient\nIngredient\nIngredient\nIngredient\n\n"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</string>
 </resources>
