@@ -11,11 +11,34 @@
     tools:context="com.chesak.adam.boilermake2017recipeapp.RecipeActivity">
 
     <TextView
+        android:text="RECIPE TITLE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/recipe_title"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="@android:style/TextAppearance.Material.Headline" />
+
+    <TextView
+        android:text="@string/placeholder_ingredients"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/recipe_ingredients"
+        android:layout_below="@+id/recipe_title"
         android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+        android:paddingLeft="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/recipe_data"
         android:text="@string/placeholder_recipe"
-        android:textAppearance="@android:style/TextAppearance.Material.Body1" />
+        android:textAppearance="@android:style/TextAppearance.Material.Body1"
+        android:layout_below="@+id/recipe_ingredients"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>
