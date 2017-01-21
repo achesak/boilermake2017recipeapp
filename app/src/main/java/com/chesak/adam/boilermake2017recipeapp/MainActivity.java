@@ -24,7 +24,9 @@ import java.io.File;
 public class MainActivity extends AppCompatActivity {
 
     // Camera request code
-    private final static int CAMERA_RQ = 6969;
+    private final static int CAMERA_RQ = 2017;
+    public static RecipeList recipeList = null;
+    public static IO io = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +35,21 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        if (io == null) {
+            io = new IO();
+            recipeList = io.readData(MainActivity.this);
+        }
+
         // Make sure the data directory exists
         File saveDir = new File(Environment.getExternalStorageDirectory(), "BoilerMake2017RecipeApp");
         saveDir.mkdirs();
 
-        Button resumeButton = (Button) findViewById(R.id.main_resume);
-        resumeButton.setText(getString(R.string.main_resume, "No previous recipe"));
+        final Button resumeButton = (Button) findViewById(R.id.main_resume);
+        if (recipeList.size() == 0) {
+            resumeButton.setText(getString(R.string.main_resume, "No previous recipe"));
+        } else {
+            resumeButton.setText(getString(R.string.main_resume, recipeList.getMostRecent().getTitle()));
+        }
 
         // Take a new picture
         Button takePictureButton = (Button) findViewById(R.id.main_take_picture);
@@ -48,6 +59,17 @@ public class MainActivity extends AppCompatActivity {
                 new MaterialCamera(MainActivity.this)
                         .stillShot()
                         .start(CAMERA_RQ);
+            }
+        });
+
+        // Resume last recipe
+        resumeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Recipe lastRecipe = MainActivity.recipeList.getMostRecent();
+                Intent resumeIntent = new Intent(MainActivity.this, RecipeActivity.class);
+                resumeIntent.putExtra("recipe", lastRecipe);
+                startActivity(resumeIntent);
             }
         });
     }
@@ -82,26 +104,28 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == CAMERA_RQ) {
 
             if (resultCode == RESULT_OK) {
+
+                // Load the bitmap
                 final File file = new File(data.getData().getPath());
                 Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
 
-                TextRecognizer textRecognizer = new TextRecognizer.Builder(this).build();
-                Frame imageFrame = new Frame.Builder()
-                        .setBitmap(bitmap)
-                        .build();
+                // OCR: get the text of the image
+                String value = OCR.getText(MainActivity.this, bitmap);
 
-                SparseArray<TextBlock> textBlocks = textRecognizer.detect(imageFrame);
+                // Build a new recipe
+                //Recipe recipe = Recipe.parseRecipe(value);
+                Recipe recipe = Demo.getDemoRecipe();
+                MainActivity.recipeList.add(recipe);
+                MainActivity.io.saveData(MainActivity.this);
 
-                String value = "";
-                for (int i = 0; i < textBlocks.size(); i++) {
-                    TextBlock textBlock = textBlocks.get(textBlocks.keyAt(i));
-                    value += textBlock.getValue() + "\n";
-                }
-
+                // Go to the recipe screen
                 Intent dataIntent = new Intent(MainActivity.this, RecipeActivity.class);
-                dataIntent.putExtra("data", value);
+                dataIntent.putExtra("recipe", recipe);
                 startActivity(dataIntent);
-            } else if(data != null) {
+
+            } else if (data != null) {
+
+                // Error here!
                 Exception e = (Exception) data.getSerializableExtra(MaterialCamera.ERROR_EXTRA);
                 e.printStackTrace();
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();

@@ -13,9 +13,16 @@ public class RecipeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe);
 
         Intent intent = getIntent();
-        String data = intent.getStringExtra("data");
+        Recipe recipe = (Recipe) intent.getSerializableExtra("recipe");
 
-        TextView textView = (TextView) findViewById(R.id.recipe_data);
-        textView.setText(data);
+        setTitle(recipe.getTitle());
+
+        TextView titleText = (TextView) findViewById(R.id.recipe_title);
+        TextView ingredientsText = (TextView) findViewById(R.id.recipe_ingredients);
+        TextView dataText = (TextView) findViewById(R.id.recipe_data);
+
+        titleText.setText(recipe.getTitle());
+        ingredientsText.setText(recipe.getIngredientsString());
+        dataText.setText(recipe.getStepsString());
     }
 }
