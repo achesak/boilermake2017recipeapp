@@ -1,5 +1,10 @@
 apply plugin: 'com.android.application'
 
+repositories {
+    jcenter()
+    maven { url "https://dl.bintray.com/drummer-aidan/maven" }
+}
+
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.3"
@@ -27,4 +32,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
     testCompile 'junit:junit:4.12'
+    compile 'com.google.android.gms:play-services-vision:9.0.0+'
+    compile 'com.afollestad:material-camera:0.4.4'
 }

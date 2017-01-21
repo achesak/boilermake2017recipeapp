@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">BoilerMake2017RecipeApp</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Main screen -->
+    <string name="main_take_picture">Take a picture</string>
+    <string name="main_use_existing">Use existing picture</string>
+    <string name="main_resume">Resume last recipe\n(%1$s)</string>
 </resources>
