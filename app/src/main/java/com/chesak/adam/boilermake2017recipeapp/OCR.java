@@ -12,7 +12,7 @@ import com.google.android.gms.vision.text.TextRecognizer;
  * Created by adam on 1/21/17.
  */
 
-public class OCR {
+final public class OCR {
 
     public static String getText(Context context, Bitmap bitmap) {
 

@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Created by adam on 1/21/17.
  */
 
-public class Recipe implements Serializable {
+final public class Recipe implements Serializable {
 
     private String title;
     private ArrayList<String> ingredients;

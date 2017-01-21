@@ -7,7 +7,7 @@ import java.util.Arrays;
  * Created by adam on 1/21/17.
  */
 
-public class Demo {
+final public class Demo {
 
     public static Recipe getDemoRecipe() {
 
